@@ -17,17 +17,20 @@ window = sg.Window("Convertor", layout=[[label_feet, input_feet],
                                         [convert_button, exit_button, output_label]])
 
 while True:
-    event, values = window.read()
-    match event:
-        case "Exit":
-            break
-        case sg.WIN_CLOSED:
-            break
+    try:
+        event, values = window.read()
+        match event:
+            case "Exit":
+                break
+            case sg.WIN_CLOSED:
+                break
 
-    output = convert(float(values['feet']), float(values['inches']))
-    result = f"{output}m"
-    window['output'].update(value=result)
-    print(output)
-    print(event, values)
+        output = convert(float(values['feet']), float(values['inches']))
+        result = f"{output}m"
+        window['output'].update(value=result)
+        print(output)
+        print(event, values)
+    except ValueError:
+        sg.popup("Enter feet and inches values first.", font=("Helvetica",10))
 
 window.close()
